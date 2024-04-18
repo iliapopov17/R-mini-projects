@@ -175,10 +175,10 @@ Residuals   225 223.65  0.9940
 
 ### **Statistical Analysis Results**
 
-**ANOVA for Time Dependency**:
-The ANOVA results show a highly significant _F_ statistic ( _F_=216.81 ), with a _p_-value close to zero ( _p_<0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.
-**ANOVA for Colony Differences**:
-The ANOVA comparing different colonies shows a non-significant result ( _p_=0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
+**ANOVA for Time Dependency**:<br>
+The ANOVA results show a highly significant _F_ statistic ( _F_ =216.81 ), with a _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.<br>
+**ANOVA for Colony Differences**:<br>
+The ANOVA comparing different colonies shows a non-significant result ( _p_ = 0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.<br>
 
 # **Part 2 - Immobilisation of ants after feeding**
 
@@ -247,12 +247,12 @@ str(ant_data_immobilisation)
  $ colony   : chr  "C219" "C219" "C219" "C219" ...
 ```
 
-The dataset includes measurements of pH in the goitre of _Camponotus floridanus_ ants across different treatments and colonies. Here are some key observations:
+The dataset includes measurements of pH in the goitre of _Camponotus floridanus_ ants across different treatments and colonies. Here are some key observations:<br>
 
-**Treatment**: The treatment column, labeled as `treatment`, likely indicates whether ants were immobilized (FA+ suggests presence of formic acid immobilization treatment, if other categories exist we'll check them).
-**Columns**: Includes `species`, `worker` ID, `treatment`, `pH`, and `colony.`
+**Treatment**: The treatment column, labeled as `treatment`, likely indicates whether ants were immobilized (FA+ suggests presence of formic acid immobilization treatment, if other categories exist we'll check them).<br>
+**Columns**: Includes `species`, `worker` ID, `treatment`, `pH`, and `colony.`<br>
 
-Let's first verify the categories under `treatment` to understand the groups we are comparing, then visualize and analyze the data accordingly.
+Let's first verify the categories under `treatment` to understand the groups we are comparing, then visualize and analyze the data accordingly.<br>
 
 **_Input_**
 
@@ -360,10 +360,10 @@ Residuals   19  5.075  0.2671
 
 ### **Statistical Analysis Results**
 
-**T-test between FA+ (immobilized) and FA- (non-immobilized)**:
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_≈7.07×10^-11), with a large negative t-statistic suggesting lower pH in immobilized ants.
-**ANOVA for pH differences among colonies (FA+ only)**:
-The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ =0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.
+**T-test between FA+ (immobilized) and FA- (non-immobilized)**:<br>
+The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ ≈ 7.07×10<sup>-11</sup>), with a large negative t-statistic suggesting lower pH in immobilized ants.<br>
+**ANOVA for pH differences among colonies (FA+ only)**:<br>
+The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.<br>
 
 # **Part 3 - Do they pass?**
 
@@ -430,13 +430,13 @@ str(ant_data_pass)
  $ colony   : chr  "C313" "C313" "C313" "C313" ...
 ```
 
-The dataset consists of 653 entries with the following structure:
+The dataset consists of 653 entries with the following structure:<br>
 
-bacteria: Name of the bacteria (e.g., Asaia, Serratia).
-gutregion: Part of the gut where the sample was taken (e.g., crop, midgut).
-time: Timepoint of the sample collection in hours.
-cfu: Colony-forming units counted.
-colony: Colony identifier.
+**bacteria**: Name of the bacteria (e.g., Asaia, Serratia).<br>
+**gutregion**: Part of the gut where the sample was taken (e.g., crop, midgut).<br>
+**time**: Timepoint of the sample collection in hours.<br>
+**cfu**: Colony-forming units counted.<br>
+**colony**: Colony identifier.<br>
 
 ## **Visualisation**
 

@@ -143,42 +143,52 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 ### **Visualisation results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
+**Data distribution**: Non-normal.<br>
 
 ## **Statistical Analysis**
 
-**ANOVA for Time Dependency**: We'll conduct an ANOVA to test if there are statistically significant differences in pH levels at different times.<br>
-**ANOVA for Colony Differences**: Another ANOVA will help determine if pH varies significantly across different ant colonies.<br>
+**Kruskal-Wallis rank sum test for Time Dependency**: We'll conduct an Kruskal-Wallis rank sum test to test if there are statistically significant differences in pH levels at different times.<br>
+**Kruskal-Wallis rank sum test for Colony Differences**: Another Kruskal-Wallis rank sum test will help determine if pH varies significantly across different ant colonies.<br>
+**Reasons of choice**: Non-normal distributed data. Data with independent observations.<br>
 
 **_Input_**
 
 ```r
-anova_time <- aov(ph ~ time, data = ant_data_pH)
-summary(anova_time)
-
-anova_colony <- aov(ph ~ colony, data = ant_data_pH)
-summary(anova_colony)
+kruskal.test(ph ~ time, data = ant_data_pH)
 ```
 
 **_Output_**
 
 ```
-             Df Sum Sq Mean Sq F value Pr(>F)    
-time          3 166.34   55.45   216.8 <2e-16 ***
-Residuals   227  58.05    0.26                   
----
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-             Df Sum Sq Mean Sq F value Pr(>F)
-colony        5   0.74  0.1486    0.15   0.98
-Residuals   225 223.65  0.9940               
+	Kruskal-Wallis rank sum test
+
+data:  ph by time
+Kruskal-Wallis chi-squared = 171.17, df = 3,
+p-value < 2.2e-16             
+```
+
+**_Input_**
+
+```r
+kruskal.test(ph ~ colony, data = ant_data_pH)
+```
+
+**_Output_**
+
+```
+	Kruskal-Wallis rank sum test
+
+data:  ph by colony
+Kruskal-Wallis chi-squared = 0.70032, df = 5,
+p-value = 0.983       
 ```
 
 ### **Statistical Analysis Results**
 
-**ANOVA for Time Dependency**:<br>
-The ANOVA results show a highly significant _F_ statistic ( _F_ =216.81 ), with a _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.<br>
-**ANOVA for Colony Differences**:<br>
-The ANOVA comparing different colonies shows a non-significant result ( _p_ = 0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.<br>
+**Kruskal-Wallis rank sum test for Time Dependency**:
+The results show _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.<br>
+**Kruskal-Wallis rank sum test for Colony Differences**:
+The Kruskal-Wallis comparing different colonies shows a non-significant result ( _p_ = 0.983 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
 
 # **Part 2 - Immobilisation of ants after feeding**
 
@@ -310,60 +320,62 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
 ### **Visualization Results**
 **Density Plot**: Shows distinct distributions of pH values for immobilized (FA+) and non-immobilized (FA-) ants, suggesting differences in acidity levels depending on the treatment.<br>
 **Boxplot**: Highlights the central tendency and variability of pH values for each treatment group. The plot indicates that the pH may be slightly higher on average in non-immobilized ants.<br>
+**Data distribution**: Non-normal.<br>
 
 ## **Statistical Analysis**
 To substantiate the observations from the visualizations, we'll perform:
 
-**T-test** for independent samples to test if the mean pH values significantly differ between the FA+ and FA- groups.<br>
-**ANOVA** to assess pH differences between colonies within immobilized ants (FA+).<br>
+**Mann–Whitney U test** for independent samples to test if the mean pH values significantly differ between the FA+ and FA- groups.<br>
+**Reasons of choice**: Non-normal distributed data. Two independent samples.<br>
+**Kruskal-Wallis rank sum test** to assess pH differences between colonies within immobilized ants (FA+).<br>
+**Reasons of choice**: Non-normal distributed data. Data with independent observations.<br>
 
 **_Input_**
 
 ```r
 fa_plus <- filter(ant_data_immobilisation, treatment == "FA+")
 fa_minus <- filter(ant_data_immobilisation, treatment == "FA-")
-t_test_results <- t.test(fa_plus$ph, fa_minus$ph, var.equal = FALSE)
 ```
 
 **_Input_**
 
 ```r
-anova_colonies_fa_plus <- aov(ph ~ colony, data = fa_plus)
-```
-
-**_Input_**
-
-```r
-print(t_test_results)
-print(summary(anova_colonies_fa_plus))
+wilcox.test(fa_plus$ph, fa_minus$ph, exact = FALSE)
 ```
 
 **_Output_**
 
 ```
-
-	Welch Two Sample t-test
+	Wilcoxon rank sum test with continuity
+	correction
 
 data:  fa_plus$ph and fa_minus$ph
-t = -8.603, df = 42.759, p-value = 7.07e-11
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -1.712624 -1.062079
-sample estimates:
-mean of x mean of y 
- 2.521739  3.909091 
+W = 23, p-value = 1.035e-07
+alternative hypothesis: true location shift is not equal to 0
+```
 
-            Df Sum Sq Mean Sq F value Pr(>F)
-colony       3  1.164  0.3880   1.453  0.259
-Residuals   19  5.075  0.2671               
+**_Input_**
+
+```r
+kruskal.test(ph ~ colony, data = fa_plus)
+```
+
+**_Output_**
+
+```
+	Kruskal-Wallis rank sum test
+
+data:  ph by colony
+Kruskal-Wallis chi-squared = 5.3592, df = 3,
+p-value = 0.1473             
 ```
 
 ### **Statistical Analysis Results**
 
-**T-test between FA+ (immobilized) and FA- (non-immobilized)**:<br>
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ ≈ 7.07×10<sup>-11</sup>), with a large negative t-statistic suggesting lower pH in immobilized ants.<br>
-**ANOVA for pH differences among colonies (FA+ only)**:<br>
-The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.<br>
+**Mann–Whitney U test between FA+ (immobilized) and FA- (non-immobilized)**:
+The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ), with a large negative t-statistic suggesting lower pH in immobilized ants.
+**Kruskal-Wallis rank sum test for pH differences among colonies (FA+ only)**:
+The results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.1473), suggesting that colony variation does not significantly impact pH within the immobilized group.
 
 # **Part 3 - Do they pass?**
 

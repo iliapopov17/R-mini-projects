@@ -5,6 +5,10 @@
 git clone https://github.com/iliapopov17/R-mini-projects.git && cd Ant microbiomes
 ```
 
+- `Ant microbes.Rmd` - contains detailed pipeline of this project (the same as you're reading in README)
+- `Ant microbes.html` - contains the same pipeline in `html` format
+- `data` - folder with the data used
+
 Then open RStudio (or VS Code if you're mad...)
 
 **_Input_**
@@ -74,6 +78,10 @@ describe(ant_data_pH)
 
 **_Output_**
 
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/describe1.png" align='center', width="100%">
+</div>
+
 **_Input_**
 
 ```r
@@ -114,6 +122,10 @@ ggplot(ant_data_pH, aes(x = ph, fill = time)) +
 
 **_Output_**
 
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/density%20and%20distribution%20of%20ph%20over%20time.png" align='center', width="100%">
+</div>
+
 **_Input_**
 
 ```r
@@ -123,6 +135,10 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 ```
 
 **_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/boxplot%20of%20ph%20values%20by%20time.png" align='center', width="100%">
+</div>
 
 ### **Visualisation results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
@@ -210,6 +226,10 @@ describe(ant_data_immobilisation)
 
 **_Output_**
 
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/describe2.png" align='center', width="100%">
+</div>
+
 **_Input_**
 
 ```r
@@ -267,6 +287,12 @@ ggplot(ant_data_immobilisation, aes(x = ph, fill = treatment)) +
   labs(title = "Density and Distribution of pH by Treatment")
 ```
 
+**_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/density%20and%20distribution%20of%20ph%20by%20treatment.png" align='center', width="100%">
+</div>
+
 **_Input_**
 
 ```r
@@ -274,6 +300,12 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
   geom_boxplot() +
   labs(title = "Boxplot of pH Values by Treatment")
 ```
+
+**_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/boxplot%20of%20ph%20values%20by%20treatment.png" align='center', width="100%">
+</div>
 
 ### **Visualization Results**
 **Density Plot**: Shows distinct distributions of pH values for immobilized (FA+) and non-immobilized (FA-) ants, suggesting differences in acidity levels depending on the treatment.<br>
@@ -375,6 +407,12 @@ summary(ant_data_pass)
 describe(ant_data_pass)
 ```
 
+**_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/describe3.png" align='center', width="100%">
+</div>
+
 **_Input_**
 
 ```r
@@ -417,6 +455,12 @@ ggplot(ant_data_pass, aes(x = cfu)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+**_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/distribution%20of%20CFU%20counts.png" align='center', width="100%">
+</div>
+
 ### **Histogram Analysis**
 Here are the histograms showing the distribution of colony-forming units (CFU) for both Asaia and Serratia bacteria in different gut regions:<br>
 
@@ -441,6 +485,12 @@ ggplot(ant_data_pass, aes(x = interaction(time, gutregion), y = cfu, fill = gutr
         strip.background = element_blank(),
         strip.text.x = element_text(size = 12, face = "bold"))
 ```
+
+**_Output_**
+
+<div style='justify-content: center'>
+<img src="https://github.com/iliapopov17/R-mini-projects/blob/main/Ant%20microbiomes/imgs/CFU%20distribution%20by%20bacteria%20type%20actoss%20time%20and%20gut%20regions.png" align='center', width="100%">
+</div>
 
 ### **Boxplot Analysis**
 The boxplots display the distribution of colony-forming units (CFU) for both Asaia and Serratia bacteria in different gut regions across various times, with the y-axis on a logarithmic scale for better visualization of the spread of data:<br>

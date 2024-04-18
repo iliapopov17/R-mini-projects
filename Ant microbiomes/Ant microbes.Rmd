@@ -333,13 +333,13 @@ wilcox.test(crop_data_10, midgut_data_10, exact = FALSE)
 
 ### **Statistical Analysis Results**
 
-**Asaia Results**:
+**Asaia Results**:<br>
 0 hours: U Statistic = 225, P-value ≈ 0.00000066 (Significant)<br>
 0.5 hours: U Statistic = 225, P-value ≈ 0.00000208 (Significant)<br>
 4 hours: U Statistic = 225, P-value ≈ 0.00000306 (Significant)<br>
 24 hours: U Statistic = 184, P-value ≈ 0.00322 (Significant)<br>
 48 hours: U Statistic = 34.5, P-value ≈ 0.00106 (Significant)<br>
-**Serratia Results**:
+**Serratia Results**:<br>
 0 hours: U Statistic = 3396, P-value ≈ 0.0000000000000000347 (Significant)<br>
 0.5 hours: U Statistic = 3279, P-value ≈ 0.00000000000000056 (Significant)<br>
 4 hours: U Statistic = 1920, P-value ≈ 0.0437 (Significant)<br>

@@ -5,8 +5,8 @@
 git clone https://github.com/iliapopov17/R-mini-projects.git && cd Ant microbiomes
 ```
 
-- `Ant microbes.Rmd` - contains detailed pipeline of this project (the same as you're reading in README)
-- `Ant microbes.html` - contains the same pipeline in `html` format
+- `Ant-microbiomes.Rmd` - contains detailed pipeline of this project (the same as you're reading in README)
+- `Ant-microbiomes.html` - contains the same pipeline in `html` format
 - `data` - folder with the data used
 
 Then open RStudio (or VS Code if you're mad...)

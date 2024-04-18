@@ -108,9 +108,9 @@ summary(anova_colony)
 ### **Statistical Analysis Results**
 
 **ANOVA for Time Dependency**:
-The ANOVA results show a highly significant _F_ statistic ( _F_=216.81 ), with a _p_-value close to zero ( _p_<0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.
+The ANOVA results show a highly significant _F_ statistic ( _F_ = 216.81 ), with a _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.
 **ANOVA for Colony Differences**:
-The ANOVA comparing different colonies shows a non-significant result ( _p_=0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
+The ANOVA comparing different colonies shows a non-significant result ( _p_ = 0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
 
 # **Part 2 - Immobilisation of ants after feeding**
 
@@ -196,9 +196,9 @@ print(summary(anova_colonies_fa_plus))
 ### **Statistical Analysis Results**
 
 **T-test between FA+ (immobilized) and FA- (non-immobilized)**:
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_≈7.07×10^-11), with a large negative t-statistic suggesting lower pH in immobilized ants.
+The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ ≈ 7.07×10^-11), with a large negative t-statistic suggesting lower pH in immobilized ants.
 **ANOVA for pH differences among colonies (FA+ only)**:
-The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ =0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.
+The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.
 
 # **Part 3 - Do they pass?**
 
@@ -221,13 +221,13 @@ describe(ant_data_pass)
 str(ant_data_pass)
 ```
 
-The dataset consists of 653 entries with the following structure:
+The dataset consists of 653 entries with the following structure:<br>
 
-bacteria: Name of the bacteria (e.g., Asaia, Serratia).
-gutregion: Part of the gut where the sample was taken (e.g., crop, midgut).
-time: Timepoint of the sample collection in hours.
-cfu: Colony-forming units counted.
-colony: Colony identifier.
+**bacteria**: Name of the bacteria (e.g., Asaia, Serratia).<br>
+**gutregion**: Part of the gut where the sample was taken (e.g., crop, midgut).<br>
+**time**: Timepoint of the sample collection in hours.<br>
+**cfu**: Colony-forming units counted.<br>
+**colony**: Colony identifier.<br>
 
 ## **Visualisation**
 

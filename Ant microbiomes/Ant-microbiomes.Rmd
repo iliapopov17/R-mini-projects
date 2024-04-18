@@ -91,26 +91,28 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 ### **Visualisation results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
+**Data distribution**: Non-normal.<br>
 
 ## **Statistical Analysis**
 
-**ANOVA for Time Dependency**: We'll conduct an ANOVA to test if there are statistically significant differences in pH levels at different times.<br>
-**ANOVA for Colony Differences**: Another ANOVA will help determine if pH varies significantly across different ant colonies.<br>
+**Kruskal-Wallis rank sum test for Time Dependency**: We'll conduct an Kruskal-Wallis rank sum test to test if there are statistically significant differences in pH levels at different times.<br>
+**Kruskal-Wallis rank sum test for Colony Differences**: Another Kruskal-Wallis rank sum test will help determine if pH varies significantly across different ant colonies.<br>
+**Reasons of choice**: Non-normal distributed data. Data with independent observations.<br>
 
 ```{r}
-anova_time <- aov(ph ~ time, data = ant_data_pH)
-summary(anova_time)
+kruskal.test(ph ~ time, data = ant_data_pH)
+```
 
-anova_colony <- aov(ph ~ colony, data = ant_data_pH)
-summary(anova_colony)
+```{r}
+kruskal.test(ph ~ colony, data = ant_data_pH)
 ```
 
 ### **Statistical Analysis Results**
 
-**ANOVA for Time Dependency**:
-The ANOVA results show a highly significant _F_ statistic ( _F_ = 216.81 ), with a _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.
-**ANOVA for Colony Differences**:
-The ANOVA comparing different colonies shows a non-significant result ( _p_ = 0.980 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
+**Kruskal-Wallis rank sum test for Time Dependency**:
+The results show _p_-value close to zero ( _p_ < 0.001 ). This strongly suggests that the pH levels vary significantly across different times, confirming the impact of feeding time on the goitre's acidity.<br>
+**Kruskal-Wallis rank sum test for Colony Differences**:
+The Kruskal-Wallis comparing different colonies shows a non-significant result ( _p_ = 0.983 ). This implies that the differences in pH levels between colonies are not statistically significant, suggesting that colony does not influence the acidity of the goitre.
 
 # **Part 2 - Immobilisation of ants after feeding**
 
@@ -137,7 +139,7 @@ str(ant_data_immobilisation)
 
 The dataset includes measurements of pH in the goitre of _Camponotus floridanus_ ants across different treatments and colonies. Here are some key observations:
 
-**Treatment**: The treatment column, labeled as `treatment`, likely indicates whether ants were immobilized (FA+ suggests presence of formic acid immobilization treatment, if other categories exist we'll check them).
+**Treatment**: The treatment column, labeled as `treatment`, likely indicates whether ants were immobilized (FA+ suggests presence of formic acid immobilization treatment, if other categories exist we'll check them).<br>
 **Columns**: Includes `species`, `worker` ID, `treatment`, `pH`, and `colony.`
 
 Let's first verify the categories under `treatment` to understand the groups we are comparing, then visualize and analyze the data accordingly.
@@ -171,34 +173,36 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
 ### **Visualization Results**
 **Density Plot**: Shows distinct distributions of pH values for immobilized (FA+) and non-immobilized (FA-) ants, suggesting differences in acidity levels depending on the treatment.<br>
 **Boxplot**: Highlights the central tendency and variability of pH values for each treatment group. The plot indicates that the pH may be slightly higher on average in non-immobilized ants.<br>
+**Data distribution**: Non-normal.<br>
 
 ## **Statistical Analysis**
 To substantiate the observations from the visualizations, we'll perform:
 
-**T-test** for independent samples to test if the mean pH values significantly differ between the FA+ and FA- groups.<br>
-**ANOVA** to assess pH differences between colonies within immobilized ants (FA+).<br>
+**Mann–Whitney U test** for independent samples to test if the mean pH values significantly differ between the FA+ and FA- groups.<br>
+**Reasons of choice**: Non-normal distributed data. Two independent samples.<br>
+**Kruskal-Wallis rank sum test** to assess pH differences between colonies within immobilized ants (FA+).<br>
+**Reasons of choice**: Non-normal distributed data. Data with independent observations.<br>
 
 ```{r}
 fa_plus <- filter(ant_data_immobilisation, treatment == "FA+")
 fa_minus <- filter(ant_data_immobilisation, treatment == "FA-")
-t_test_results <- t.test(fa_plus$ph, fa_minus$ph, var.equal = FALSE)
 ```
 
 ```{r}
-anova_colonies_fa_plus <- aov(ph ~ colony, data = fa_plus)
+wilcox.test(fa_plus$ph, fa_minus$ph, exact = FALSE)
 ```
 
+
 ```{r}
-print(t_test_results)
-print(summary(anova_colonies_fa_plus))
+kruskal.test(ph ~ colony, data = fa_plus)
 ```
 
 ### **Statistical Analysis Results**
 
-**T-test between FA+ (immobilized) and FA- (non-immobilized)**:
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ ≈ 7.07×10^-11), with a large negative t-statistic suggesting lower pH in immobilized ants.
-**ANOVA for pH differences among colonies (FA+ only)**:
-The ANOVA results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.259), suggesting that colony variation does not significantly impact pH within the immobilized group.
+**Mann–Whitney U test between FA+ (immobilized) and FA- (non-immobilized)**:
+The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ), with a large negative t-statistic suggesting lower pH in immobilized ants.
+**Kruskal-Wallis rank sum test for pH differences among colonies (FA+ only)**:
+The results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.1473), suggesting that colony variation does not significantly impact pH within the immobilized group.
 
 # **Part 3 - Do they pass?**
 
@@ -277,10 +281,9 @@ The boxplots display the distribution of colony-forming units (CFU) for both Asa
 
 ## **Statistical Analysis**
 
-Statistics will be done using Mann-Whitney U Test, because:<br>
-**Non-Parametric Test**: Mann-Whitney U test does not require the data to follow a normal distribution. This is particularly useful since the distribution of CFU counts, as seen in the histograms, does not clearly follow a normal distribution.<br>
-**Comparative Analysis**: Our goal is to compare bacterial counts between two independent samples (crop vs. midgut) at various time points. The Mann-Whitney U test is designed to assess whether there is a statistically significant difference in the medians between two independent samples, which is exactly our situation.<br>
-**Appropriate for Ordinal and Continuous Data**: The Mann-Whitney U test is suitable for continuous data (like CFU counts) and ordinal data. It compares the ranks of the data in the two groups, rather than their actual values, providing a robust measure of differences that is less sensitive to outliers.<br>
+Statistics will be done using Wilcoxon Signed Rank Test, because:<br>
+**Non-Parametric Test**: Wilcoxon Signed Rank Test does not require the data to follow a normal distribution. This is particularly useful since the distribution of CFU counts, as seen in the histograms, does not clearly follow a normal distribution.<br>
+**Comparative Analysis**: Our goal is to compare bacterial counts between two dependent samples (crop vs. midgut) at various time points. They are dependent because crop and midgut are parts of one system.<br>
 
 ```{r}
 #Asaia

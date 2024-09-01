@@ -5,7 +5,7 @@
 The idea behind this repository is to:
 1. Demonstrate my skills in statistics and R
 2. If I made some mistakes, you can contact me via [email](mailto:iljapopov17@gmail.com) and say bad-words about my skills<br>(I did these projects 2 years ago, I just decided to publish them now, so there ARE little mistakes)
-4. Share the data so you can do analysis by yourself
+3. Share the data so you can do analysis by yourself
 
 Data is uploading gradually... Please wait. Every project will be uploaded! (I hope so)
 

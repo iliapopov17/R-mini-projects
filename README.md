@@ -1,13 +1,13 @@
 # Repository for Mini Projects conducted at the «Statistics, R and data analysis» study course by Blastim in 2022
 
-> This repository for **mini-projects** in Statistics and R
+> This repository for **projects** in Statistics and R
 
 The idea behind this repository is to:
 1. Demonstrate my skills in statistics and R
-2. If I made some mistakes, you can contact me via [email](mailto:iljapopov17@gmail.com) and say bad-words about my skills<br>(I did these projects 2 years ago, I just decided to publish them now, so there are little mistakes)
+2. If I made some mistakes, you can contact me via [email](mailto:iljapopov17@gmail.com) and say bad-words about my skills<br>(I did these projects 2 years ago, I just decided to publish them now, so there ARE little mistakes)
 4. Share the data so you can do analysis by yourself
 
-Data is uploading gradually... Please wait. Every project will be uploaded!
+Data is uploading gradually... Please wait. Every project will be uploaded! (I hope so)
 
 ## Project 4. Metabolites of primates 🐒
 

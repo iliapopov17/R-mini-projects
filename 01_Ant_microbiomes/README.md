@@ -2,6 +2,25 @@
 
 - 📑 `Ant-microbiomes.Rmd` - contains detailed pipeline of this project (the same as you're reading in README)
 - 📁 `data` - folder with the data used
+  
+Install or load needed libraries
+
+**_Input_**
+
+```r libraries, message=FALSE, warning=FALSE
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(ggplot2
+```
+
+Set working directory
+
+**_Input_**
+
+```r
+main_dir <- dirname(rstudioapi::getSourceEditorContext()$path) 
+setwd(main_dir)
+```
 
 ## Table of contents
 - [Part 1 - pH of the ant goitre](#part-1---ph-of-the-ant-goitre)
@@ -28,26 +47,6 @@
     - [Normality test results](#normality-test-results-2)
   - [Statistical Analysis](#statistical-analysis-2)
     - [Normality test results](#statistical-analysis-results-2)
-  
-
-Install or load needed libraries
-
-**_Input_**
-
-```r libraries, message=FALSE, warning=FALSE
-if (!require("pacman")) install.packages("pacman")
-
-pacman::p_load(ggplot2
-```
-
-Set working directory
-
-**_Input_**
-
-```r
-main_dir <- dirname(rstudioapi::getSourceEditorContext()$path) 
-setwd(main_dir)
-```
 
 # **Part 1 - pH of the ant goitre**
 

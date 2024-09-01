@@ -80,7 +80,10 @@ ggplot(ant_data_pH, aes(x = ph, fill = time)) +
 ```
 
 ```{r}
+level_order <- c('0+4h', '0+24h', '0+48h', '48+4h')
+
 ggplot(ant_data_pH, aes(x = time, y = ph)) +
+  scale_x_discrete(limits = level_order)+
   geom_boxplot() +
   labs(title = "Boxplot of pH Values by Time")
 ```

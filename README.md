@@ -23,4 +23,4 @@ A low ratio of CD4+ to CD8+ T-lymphocytes (CD4/CD8) in peripheral blood may be a
 
 ## Project 1. Ant microbiomes 🐜
 
-The [project](Ant%20microbiomes) studies the regulation of microbial communities in the gut of _Camponotus floridanus_ ants. It is hypothesised that these ants control their microbiota and food-borne pathogens by ingesting a toxic secretion produced by their own glands. The main component of the secretion is formic acid.
+The [project](01_Ant_microbiomes) studies the regulation of microbial communities in the gut of _Camponotus floridanus_ ants. It is hypothesised that these ants control their microbiota and food-borne pathogens by ingesting a toxic secretion produced by their own glands. The main component of the secretion is formic acid.

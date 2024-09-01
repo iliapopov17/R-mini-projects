@@ -1,7 +1,7 @@
 ---
-title: "Ant microbes"
+title: "Ant microbes R Project"
 author: "Ilia Popov"
-date: "2024-04-18"
+date: "2024-09-01"
 output:
   html_document:
     latex_engine: xelatex
@@ -24,14 +24,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r libraries, message=FALSE, warning=FALSE}
-library(ggplot2)
-library(dplyr)
-library(stats)
-library(psych)
-library(readr)
-library(tidyr)
-library(ggpubr)
-library(purrr)
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(ggplot2, dplyr, stats, psych, readr, tidyr, ggpubr, purrr, rstatix)
 ```
 
 ```{r}
@@ -50,6 +45,8 @@ Questions to be answered:<br>
 ```{r}
 ant_data_pH <- read.csv("data/Supplementary_Data_Fig.1a.txt", sep="\t")
 ```
+
+## **EDA**
 
 ```{r}
 summary(ant_data_pH)
@@ -74,7 +71,7 @@ The dataset contains 231 entries for the _Camponotus floridanus_ ants, detailing
 
 Let's start with visualizing the pH distribution overall and at each specified time to see if there's an apparent trend or shift related to feeding times. We'll use histograms and box plots for these visualizations.
 
-```{r}
+```{r, warning=FALSE}
 ggplot(ant_data_pH, aes(x = ph, fill = time)) +
   geom_histogram(aes(y = ..density..), binwidth = 0.1, alpha = 0.6, position = "identity") +
   geom_density(alpha = 0.5) +
@@ -92,6 +89,18 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
 **Data distribution**: Non-normal.<br>
+
+## **Normality test**
+
+Let's use `shapiro.test` to check the distribution of pH values.
+
+```{r}
+shapiro.test(ant_data_pH$ph)
+```
+
+### **Normality test results**
+
+The data is distributed non-normal
 
 ## **Statistical Analysis**
 
@@ -124,6 +133,8 @@ Questions to be answered:<br>
 ```{r}
 ant_data_immobilisation <- read.csv("data/Supplementary_Data_Fig.1b.txt", sep="\t")
 ```
+
+## **EDA**
 
 ```{r}
 summary(ant_data_immobilisation)
@@ -175,6 +186,18 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
 **Boxplot**: Highlights the central tendency and variability of pH values for each treatment group. The plot indicates that the pH may be slightly higher on average in non-immobilized ants.<br>
 **Data distribution**: Non-normal.<br>
 
+## **Normality test**
+
+Let's use `shapiro.test` to check the distribution of pH values.
+
+```{r}
+shapiro.test(ant_data_immobilisation$ph)
+```
+
+### **Normality test results**
+
+The data is distributed non-normal
+
 ## **Statistical Analysis**
 To substantiate the observations from the visualizations, we'll perform:
 
@@ -192,7 +215,6 @@ fa_minus <- filter(ant_data_immobilisation, treatment == "FA-")
 wilcox.test(fa_plus$ph, fa_minus$ph, exact = FALSE)
 ```
 
-
 ```{r}
 kruskal.test(ph ~ colony, data = fa_plus)
 ```
@@ -200,7 +222,7 @@ kruskal.test(ph ~ colony, data = fa_plus)
 ### **Statistical Analysis Results**
 
 **Mann–Whitney U test between FA+ (immobilized) and FA- (non-immobilized)**:
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ), with a large negative t-statistic suggesting lower pH in immobilized ants.
+The result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ), suggesting lower pH in immobilized ants.
 **Kruskal-Wallis rank sum test for pH differences among colonies (FA+ only)**:
 The results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.1473), suggesting that colony variation does not significantly impact pH within the immobilized group.
 
@@ -212,6 +234,8 @@ Question to be answered:<br>
 ```{r}
 ant_data_pass <- read.csv("data/Supplementary_Data_Fig.5ab.txt", sep = "\t")
 ```
+
+## **EDA**
 
 ```{r}
 summary(ant_data_pass)
@@ -256,7 +280,7 @@ Here are the histograms showing the distribution of colony-forming units (CFU) f
 **Serratia in Crop**: Similar to Asaia, Serratia shows a varied distribution in the crop but generally at lower counts compared to Asaia.<br>
 **Serratia in Midgut**: The counts are very low, similar to Asaia, indicating minimal presence in the midgut.<br>
 
-```{r}
+```{r, warning=FALSE}
 ggplot(ant_data_pass, aes(x = interaction(time, gutregion), y = cfu, fill = gutregion)) +
   geom_boxplot() +
   facet_wrap(~bacteria, scales = "free_x") +
@@ -279,78 +303,50 @@ The boxplots display the distribution of colony-forming units (CFU) for both Asa
 **Serratia in Crop over Time**: Similar to Asaia, there's a clear decrease in CFU over time, indicating a reduction in bacterial presence in the crop.<br>
 **Serratia in Midgut over Time**: The counts are generally low, comparable to those of Asaia, and remain low over time, though there are some outliers or variations at specific times.<br>
 
+## **Normality test**
+
+Let's use `shapiro.test` to check the distribution of CFU values.
+
+```{r}
+ant_data_pass %>%
+  group_by(gutregion, time) %>%
+  shapiro_test(cfu)
+```
+
+### **Normality test results**
+
+The data is distributed non-normal
+
 ## **Statistical Analysis**
 
-Statistics will be done using Wilcoxon Signed Rank Test, because:<br>
-**Non-Parametric Test**: Wilcoxon Signed Rank Test does not require the data to follow a normal distribution. This is particularly useful since the distribution of CFU counts, as seen in the histograms, does not clearly follow a normal distribution.<br>
-**Comparative Analysis**: Our goal is to compare bacterial counts between two dependent samples (crop vs. midgut) at various time points. They are dependent because crop and midgut are parts of one system.<br>
+Statistics will be done using Kruskal-Wallis Test, because:<br>
+**Non-Parametric Test**: Kruskal-Wallis Test does not require the data to follow a normal distribution. This is particularly useful since the distribution of CFU counts, as seen in the histograms, does not clearly follow a normal distribution.<br>
+**Comparative Analysis**: Our goal is to compare bacterial counts between two samples (crop vs. midgut) at various time points.<br>
 
 ```{r}
-#Asaia
-# I know this solution is not the best one.
-# This code can (must) be vectorized, yet all my efforts resulted in wrong results.
-# However, this simple code provides correct results. So what's the difference so far!
-crop_data_1 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "crop", time == 0)$cfu
-midgut_data_1 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "midgut", time == 0)$cfu
-crop_data_2 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "crop", time == 0.5)$cfu
-midgut_data_2 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "midgut", time == 0.5)$cfu
-crop_data_3 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "crop", time == 4.0)$cfu
-midgut_data_3 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "midgut", time == 4.0)$cfu
-crop_data_4 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "crop", time == 24.0)$cfu
-midgut_data_4 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "midgut", time == 24.0)$cfu
-crop_data_5 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "crop", time == 48.0)$cfu
-midgut_data_5 <- filter(ant_data_pass, bacteria == "asaia", gutregion == "midgut", time == 48.0)$cfu
+ant_data_pass %>% 
+  group_by(bacteria, time) %>% 
+  kruskal_test(cfu ~ gutregion)
 ```
 
-```{r}
-wilcox.test(crop_data_1, midgut_data_1, exact = FALSE)
-wilcox.test(crop_data_2, midgut_data_2, exact = FALSE)
-wilcox.test(crop_data_3, midgut_data_3, exact = FALSE)
-wilcox.test(crop_data_4, midgut_data_4, exact = FALSE)
-wilcox.test(crop_data_5, midgut_data_5, exact = FALSE)
-```
+Now we perform post hoc test with Dunn's test
 
 ```{r}
-#Serratia
-# I know this solution is not the best one.
-# This code can (must) be vectorized, yet all my efforts resulted in wrong results.
-# However, this simple code provides correct results. So what's the difference so far!
-crop_data_6 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "crop", time == 0)$cfu
-midgut_data_6 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "midgut", time == 0)$cfu
-crop_data_7 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "crop", time == 0.5)$cfu
-midgut_data_7 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "midgut", time == 0.5)$cfu
-crop_data_8 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "crop", time == 4.0)$cfu
-midgut_data_8 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "midgut", time == 4.0)$cfu
-crop_data_9 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "crop", time == 24.0)$cfu
-midgut_data_9 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "midgut", time == 24.0)$cfu
-crop_data_10 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "crop", time == 48.0)$cfu
-midgut_data_10 <- filter(ant_data_pass, bacteria == "serratia", gutregion == "midgut", time == 48.0)$cfu
-```
-```{r}
-wilcox.test(crop_data_6, midgut_data_6, exact = FALSE)
-wilcox.test(crop_data_7, midgut_data_7, exact = FALSE)
-wilcox.test(crop_data_8, midgut_data_8, exact = FALSE)
-wilcox.test(crop_data_9, midgut_data_9, exact = FALSE)
-wilcox.test(crop_data_10, midgut_data_10, exact = FALSE)
+ant_data_pass_results_posthoc <- ant_data_pass %>%
+  group_by(bacteria, time) %>%
+  dunn_test(cfu ~ gutregion, p.adjust.method = "bonferroni")
+ant_data_results_posthoc
 ```
 
 ### **Statistical Analysis Results**
 
-**Asaia Results**:<br>
-0 hours: U Statistic = 225, P-value ≈ 0.00000066 (Significant)<br>
-0.5 hours: U Statistic = 225, P-value ≈ 0.00000208 (Significant)<br>
-4 hours: U Statistic = 225, P-value ≈ 0.00000306 (Significant)<br>
-24 hours: U Statistic = 184, P-value ≈ 0.00322 (Significant)<br>
-48 hours: U Statistic = 34.5, P-value ≈ 0.00106 (Significant)<br>
-**Serratia Results**:<br>
-0 hours: U Statistic = 3396, P-value ≈ 0.0000000000000000347 (Significant)<br>
-0.5 hours: U Statistic = 3279, P-value ≈ 0.00000000000000056 (Significant)<br>
-4 hours: U Statistic = 1920, P-value ≈ 0.0437 (Significant)<br>
-24 hours: U Statistic = 1413.5, P-value ≈ 0.695 (Not significant)<br>
-48 hours: U Statistic = 199.5, P-value ≈ 0.1629 (Not significant)<br>
+Before interpreting the results, it should be remembered that for the first four hours the food remains in the goitre and only a small part of it goes to the midgut. Only after 18 hours the bulk of the food passes from the goitre to the intestine (midgut).<br>
 
-For _Asaia_, there is a statistically significant difference between the crop and midgut CFU counts at all measured time points. This suggests that there is a consistent difference in the bacterial population between these two gut regions across time, supporting the hypothesis that Asaia does not maintain equal populations between the crop and the midgut.<br>
-For _Serratia_, significant differences are observed in the early time points (0, 0.5, and 4 hours), indicating initial differences in bacterial populations between the crop and the midgut. However, at 24 and 48 hours, the p-values indicate no significant differences, which might suggest that over time, any initial differences in population may equalize or become less distinct.
+For _Asaia_, there is a statistically significant difference between the crop and midgut CFU counts at all measured time points. This suggests that there is a consistent difference in the bacterial population between these two gut regions across time. Looking at the boxplot, it can be seen that the CFU count of _Asaia_ becomes higher after 18 hours (24 and 48 hours). At 24 hours, when comparing the GI tract sections using Kruskal Wallis test, the statistic is -2.9663418 and the p-value is 3.013653e-03, which indicates that 24 hours after ingestion of food, the _Asaia_ bacteria have passed into the midgut, but are in lower numbers than in the goitre. But at the time interval of 48 hours, the value of the statistic is already 3.2963553 with an extreme low p-value of 9.794805e-04, which means that 48 hours after ingestion of food, the number of _Asaia_ bacteria in the midgut is higher than in the goitre.<br>
+
+For _Serratia_, significant differences are observed in the early time points (0, 0.5 and 4 hours), which means absolutely nothing based on the fact that bacterias are expected to come up to midgut after 18 hours. Especially these resuts are of no use to us since _Seratia_ bacteria has 0 CFU in midgut at 4 hours! However, at 24 and 48 hours, the p-values indicate no significant differences, which might suggest that over time, any initial differences in population may equalize. Yet in boxplot it can be seen that at 48 hours there are 0 _Seratia_ CFUs in midgut. So only 24 hours results are interesting for us.
+
+**Summary:** Bacteria from both of these genera pass into the intestine. However, bacteria from the genus _Asaia_ stay there for a long time, while bacteria from the genus _Seratia_ do not stay there longer than 24 hours.
 
 # **References**
 
@@ -359,5 +355,5 @@ The following packages must be installed to work with the dataset:
 ```{r}
 knitr::write_bib(c("ggplot2", "dplyr", "stats", "psych",
                    "readr", "tidyr", "ggpubr",
-                   "purrr"), file = "packages.bib")
+                   "purrr", "rstatix"), file = "packages.bib")
 ```

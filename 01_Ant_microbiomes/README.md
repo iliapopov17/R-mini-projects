@@ -442,9 +442,9 @@ p-value = 0.1473
 
 ### **Statistical Analysis Results**
 
-**Mann–Whitney U test between FA+ (immobilized) and FA- (non-immobilized)**:
-The t-test result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ), with a large negative t-statistic suggesting lower pH in immobilized ants.
-**Kruskal-Wallis rank sum test for pH differences among colonies (FA+ only)**:
+**Mann–Whitney U test between FA+ (immobilized) and FA- (non-immobilized)**:<br>
+The result shows a highly significant difference in pH values between immobilized and non-immobilized ants ( _p_ = 1.035e-07 ).<br>
+**Kruskal-Wallis rank sum test for pH differences among colonies (FA+ only)**:<br>
 The results indicate no significant differences in pH levels among different colonies for immobilized ants ( _p_ = 0.1473), suggesting that colony variation does not significantly impact pH within the immobilized group.
 
 # **Part 3 - Do they pass?**

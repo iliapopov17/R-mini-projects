@@ -4,7 +4,31 @@
 - 📁 `data` - folder with the data used
 
 ## Table of contents
-- Add toc in web github...
+- [Part 1 - pH of the ant goitre](#part-1---ph-of-the-ant-goitre)
+  - [EDA](#eda)
+  - [Visualization](#visualisation) 
+    - [Visualization results](#visualization-results)
+  - [Normality test](#normality-test)
+    - [Normality test results](#normality-test-results)
+  - [Statistical Analysis](#statistical-analysis)
+    - [Normality test results](#statistical-analysis-results)
+- [Part 2 - Immobilisation of ants after feeding](#part-2---immobilisation-of-ants-after-feeding)
+  - [EDA](#eda-1)
+  - [Visualization](#visualisation-1) 
+    - [Visualization results](#visualisation-results-1)
+  - [Normality test](#normality-test-1)
+    - [Normality test results](#normality-test-results-1)
+  - [Statistical Analysis](#statistical-analysis-1)
+    - [Normality test results](#statistical-analysis-results-1)
+- [Part 3 - Do they pass?](#part-3---do-they-pass)
+  - [EDA](#eda-2)
+  - [Visualization](#visualisation-2) 
+    - [Visualization results](#visualisation-results-2)
+  - [Normality test](#normality-test-2)
+    - [Normality test results](#normality-test-results-2)
+  - [Statistical Analysis](#statistical-analysis-2)
+    - [Normality test results](#statistical-analysis-results-2)
+  
 
 Install or load needed libraries
 
@@ -136,7 +160,7 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 <img src="https://github.com/iliapopov17/R-mini-projects/blob/main/01_Ant_microbiomes/imgs/boxplot%20of%20ph%20values%20by%20time.png" align='center', width="100%">
 </div>
 
-### **Visualisation results**
+### **Visualization results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
 **Data distribution**: Non-normal.<br>

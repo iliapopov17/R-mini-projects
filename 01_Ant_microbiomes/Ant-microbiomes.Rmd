@@ -1,5 +1,5 @@
 ---
-title: "Ant microbes R Project"
+title: "The control of gut acidity and microbiota in Camponotus floridanus ants"
 author: "Ilia Popov"
 date: "2024-09-01"
 output:
@@ -67,7 +67,7 @@ The dataset contains 231 entries for the _Camponotus floridanus_ ants, detailing
 **Time and pH**: The dataset records the pH of the goitre at different time points after feeding (0+4h, 0+24h, 0+48h, 48+4h). We'll compare these to see if feeding time influences pH.<br>
 **pH Values**: pH ranges from 1.5 to 5.0. The mean pH is approximately 3.35, suggesting a generally acidic environment, which is expected given that formic acid is a primary component of the gland secretion mentioned.<br>
 
-## **Visualisation**
+## **Visualization**
 
 Let's start with visualizing the pH distribution overall and at each specified time to see if there's an apparent trend or shift related to feeding times. We'll use histograms and box plots for these visualizations.
 
@@ -88,12 +88,12 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
   labs(title = "Boxplot of pH Values by Time")
 ```
 
-### **Visualisation results**
+### **Visualization Results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
 **Data distribution**: Non-normal.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of pH values.
 
@@ -101,7 +101,7 @@ Let's use `shapiro.test` to check the distribution of pH values.
 shapiro.test(ant_data_pH$ph)
 ```
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 
@@ -166,7 +166,7 @@ The `treatment` column has two categories:<br>
 **FA+**: Ants that were immobilized.<br>
 **FA-**: Ants that were not immobilized.<br>
 
-## **Visualisation**
+## **Visualization**
 
 Let's start by visualizing the pH distribution for immobilized vs. non-immobilized ants and then proceed with the statistical analysis.<br>
 
@@ -189,7 +189,7 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
 **Boxplot**: Highlights the central tendency and variability of pH values for each treatment group. The plot indicates that the pH may be slightly higher on average in non-immobilized ants.<br>
 **Data distribution**: Non-normal.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of pH values.
 
@@ -197,7 +197,7 @@ Let's use `shapiro.test` to check the distribution of pH values.
 shapiro.test(ant_data_immobilisation$ph)
 ```
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 
@@ -260,7 +260,7 @@ The dataset consists of 653 entries with the following structure:<br>
 **cfu**: Colony-forming units counted.<br>
 **colony**: Colony identifier.<br>
 
-## **Visualisation**
+## **Visualization**
 
 Let's start with visualizing the CFU distribution in two different gut regions.
 
@@ -306,7 +306,7 @@ The boxplots display the distribution of colony-forming units (CFU) for both Asa
 **Serratia in Crop over Time**: Similar to Asaia, there's a clear decrease in CFU over time, indicating a reduction in bacterial presence in the crop.<br>
 **Serratia in Midgut over Time**: The counts are generally low, comparable to those of Asaia, and remain low over time, though there are some outliers or variations at specific times.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of CFU values.
 
@@ -316,7 +316,7 @@ ant_data_pass %>%
   shapiro_test(cfu)
 ```
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 

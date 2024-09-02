@@ -1,4 +1,6 @@
-# Introduction
+# The control of gut acidity and microbiota in _Camponotus floridanus_ ants
+
+## Introduction
 
 - 📑 `Ant-microbiomes.Rmd` - contains detailed pipeline of this project (the same as you're reading in README)
 - 📁 `data` - folder with the data used
@@ -25,28 +27,28 @@ setwd(main_dir)
 ## Table of contents
 - [Part 1 - pH of the ant goitre](#part-1---ph-of-the-ant-goitre)
   - [EDA](#eda)
-  - [Visualization](#visualisation) 
-    - [Visualization results](#visualization-results)
-  - [Normality test](#normality-test)
-    - [Normality test results](#normality-test-results)
-  - [Statistical analysis](#statistical-analysis)
-    - [Statistical analysis results](#statistical-analysis-results)
+  - [Visualization](#visualization) 
+    - [Visualization Results](#visualization-results)
+  - [Normality Test](#normality-test)
+    - [Normality Test Results](#normality-test-results)
+  - [Statistical Analysis](#statistical-analysis)
+    - [Statistical Analysis Results](#statistical-analysis-results)
 - [Part 2 - Immobilisation of ants after feeding](#part-2---immobilisation-of-ants-after-feeding)
   - [EDA](#eda-1)
-  - [Visualization](#visualisation-1) 
-    - [Visualization results](#visualisation-results-1)
-  - [Normality test](#normality-test-1)
-    - [Normality test results](#normality-test-results-1)
-  - [Statistical analysis](#statistical-analysis-1)
-    - [Statistical analysis results](#statistical-analysis-results-1)
+  - [Visualization](#visualization-1) 
+    - [Visualization Results](#visualization-results-1)
+  - [Normality Test](#normality-test-1)
+    - [Normality Test Results](#normality-test-results-1)
+  - [Statistical Analysis](#statistical-analysis-1)
+    - [Statistical Analysis Results](#statistical-analysis-results-1)
 - [Part 3 - Do they pass?](#part-3---do-they-pass)
   - [EDA](#eda-2)
-  - [Visualization](#visualisation-2) 
-    - [Visualization results](#visualisation-results-2)
-  - [Normality test](#normality-test-2)
-    - [Normality test results](#normality-test-results-2)
-  - [Statistical analysis](#statistical-analysis-2)
-    - [Statistical analysis results](#statistical-analysis-results-2)
+  - [Visualization](#visualization-2) 
+    - [Visualization Results](#visualization-results-2)
+  - [Normality Test](#normality-test-2)
+    - [Normality Test Results](#normality-test-results-2)
+  - [Statistical Analysis](#statistical-analysis-2)
+    - [Statistical Analysis Results](#statistical-analysis-results-2)
 
 # **Part 1 - pH of the ant goitre**
 
@@ -125,7 +127,7 @@ The dataset contains 231 entries for the _Camponotus floridanus_ ants, detailing
 **Time and pH**: The dataset records the pH of the goitre at different time points after feeding (0+4h, 0+24h, 0+48h, 48+4h). We'll compare these to see if feeding time influences pH.<br>
 **pH Values**: pH ranges from 1.5 to 5.0. The mean pH is approximately 3.35, suggesting a generally acidic environment, which is expected given that formic acid is a primary component of the gland secretion mentioned.<br>
 
-## **Visualisation**
+## **visualization**
 
 Let's start with visualizing the pH distribution overall and at each specified time to see if there's an apparent trend or shift related to feeding times. We'll use histograms and box plots for these visualizations.
 
@@ -162,12 +164,12 @@ ggplot(ant_data_pH, aes(x = time, y = ph)) +
 <img src="https://github.com/iliapopov17/R-mini-projects/blob/main/01_Ant_microbiomes/imgs/boxplot%20of%20ph%20values%20by%20time.png" align='center', width="100%">
 </div>
 
-### **Visualization results**
+### **Visualization Results**
 **Density Plot**: Shows variations in the pH distribution at each time point. We can observe shifts in pH concentration and spread, indicating possible changes due to feeding.<br>
 **Boxplot**: Highlights median values and spread of pH at each time point. Notably, the interquartile range and median values vary, suggesting significant changes in pH levels related to the time post-feeding.<br>
 **Data distribution**: Non-normal.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of pH values.
 
@@ -186,7 +188,7 @@ data:  ant_data_pH$ph
 W = 0.94063, p-value = 4.473e-08
 ```
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 
@@ -330,7 +332,7 @@ The `treatment` column has two categories:<br>
 **FA+**: Ants that were immobilized.<br>
 **FA-**: Ants that were not immobilized.<br>
 
-## **Visualisation**
+## **Visualization**
 
 Let's start by visualizing the pH distribution for immobilized vs. non-immobilized ants and then proceed with the statistical analysis.<br>
 
@@ -369,7 +371,7 @@ ggplot(ant_data_immobilisation, aes(x = treatment, y = ph)) +
 **Boxplot**: Highlights the central tendency and variability of pH values for each treatment group. The plot indicates that the pH may be slightly higher on average in non-immobilized ants.<br>
 **Data distribution**: Non-normal.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of pH values.
 
@@ -388,7 +390,7 @@ data:  ant_data_immobilisation$ph
 W = 0.91542, p-value = 0.002968
 ```
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 
@@ -522,7 +524,7 @@ The dataset consists of 653 entries with the following structure:<br>
 **cfu**: Colony-forming units counted.<br>
 **colony**: Colony identifier.<br>
 
-## **Visualisation**
+## **Visualization**
 
 Let's start with visualizing the CFU distribution in two different gut regions.
 
@@ -584,7 +586,7 @@ The boxplots display the distribution of colony-forming units (CFU) for both Asa
 **Serratia in Crop over Time**: Similar to Asaia, there's a clear decrease in CFU over time, indicating a reduction in bacterial presence in the crop.<br>
 **Serratia in Midgut over Time**: The counts are generally low, comparable to those of Asaia, and remain low over time, though there are some outliers or variations at specific times.<br>
 
-## **Normality test**
+## **Normality Test**
 
 Let's use `shapiro.test` to check the distribution of CFU values.
 
@@ -602,7 +604,7 @@ ant_data_pass %>%
 <img src="https://github.com/iliapopov17/R-mini-projects/blob/main/01_Ant_microbiomes/imgs/shapiro_p3.png" align='center', width="100%">
 </div>
 
-### **Normality test results**
+### **Normality Test Results**
 
 The data is distributed non-normal
 

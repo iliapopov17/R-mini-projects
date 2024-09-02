@@ -127,7 +127,7 @@ The dataset contains 231 entries for the _Camponotus floridanus_ ants, detailing
 **Time and pH**: The dataset records the pH of the goitre at different time points after feeding (0+4h, 0+24h, 0+48h, 48+4h). We'll compare these to see if feeding time influences pH.<br>
 **pH Values**: pH ranges from 1.5 to 5.0. The mean pH is approximately 3.35, suggesting a generally acidic environment, which is expected given that formic acid is a primary component of the gland secretion mentioned.<br>
 
-## **visualization**
+## **Visualization**
 
 Let's start with visualizing the pH distribution overall and at each specified time to see if there's an apparent trend or shift related to feeding times. We'll use histograms and box plots for these visualizations.
 
